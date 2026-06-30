@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050505">
+  <meta name="description" content="KAVISTORE переехал на новый официальный сайт kavistore.org.">
+  <meta property="og:title" content="KAVISTORE переехал на kavistore.org">
+  <meta property="og:description" content="Официальная страница перехода KAVISTORE: сайт, Telegram-канал и менеджер.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/kavistore-logo.jpg">
+  <title>KAVISTORE — мы переехали</title>
+  <link rel="icon" href="assets/kavistore-logo.jpg">
+  <style>
+    :root {
+      --black:#050505;
+      --ink:#111111;
+      --muted:#6f6f6f;
+      --soft:#fffaf2;
+      --card:#ffffff;
+      --line:rgba(0,0,0,.08);
+      --gold:#c8a063;
+      --gold2:#f1d79e;
+      --tg:#229ed9;
+    }
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html,body { min-height:100%; }
+    body {
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 50% -14%, rgba(241,215,158,.30), transparent 34%),
+        radial-gradient(circle at 14% 22%, rgba(255,255,255,.09), transparent 28%),
+        linear-gradient(180deg,#050505 0%,#12100e 43%,#f7f1e8 43.3%,#ffffff 100%);
+    }
+    a { color:inherit; text-decoration:none; }
+    .app {
+      width:min(560px,100%);
+      min-height:100svh;
+      margin:0 auto;
+      padding:14px 14px calc(18px + env(safe-area-inset-bottom));
+      display:flex;
+      flex-direction:column;
+      position:relative;
+      overflow:hidden;
+    }
+    .grain {
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.10;
+      background-image:
+        linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px),
+        linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(180deg,#000 0%,transparent 46%);
+    }
+    .topbar {
+      height:58px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:#fff;
+      position:relative;
+      z-index:2;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .brand img {
+      width:39px;
+      height:39px;
+      border-radius:50%;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 14px 30px rgba(0,0,0,.36);
+    }
+    .brand span {
+      display:grid;
+      gap:1px;
+    }
+    .brand b {
+      font-size:14px;
+      line-height:1;
+      letter-spacing:.14em;
+      font-weight:1000;
+    }
+    .brand small {
+      color:rgba(255,255,255,.54);
+      font-size:10px;
+      font-weight:850;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .badge {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      min-height:34px;
+      padding:0 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.095);
+      border:1px solid rgba(255,255,255,.13);
+      color:rgba(255,255,255,.82);
+      font-size:12px;
+      font-weight:950;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+    }
+    .hero {
+      color:#fff;
+      text-align:center;
+      padding:28px 4px 20px;
+      position:relative;
+      z-index:1;
+    }
+    .logo-wrap {
+      width:124px;
+      height:124px;
+      margin:4px auto 17px;
+      border-radius:34px;
+      padding:7px;
+      background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 26px 64px rgba(0,0,0,.46);
+    }
+    .logo-wrap img {
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      border-radius:27px;
+      background:#050505;
+    }
+    .move-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(200,160,99,.13);
+      border:1px solid rgba(241,215,158,.22);
+      color:#f4dca8;
+      font-size:12px;
+      font-weight:1000;
+    }
+    .move-pill i {
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      color:#111;
+      font-style:normal;
+      font-size:12px;
+    }
+    h1 {
+      margin:14px auto 10px;
+      max-width:440px;
+      font-size:39px;
+      line-height:.93;
+      letter-spacing:-1.55px;
+      font-weight:1000;
+    }
+    .hero p {
+      max-width:405px;
+      margin:0 auto;
+      color:rgba(255,255,255,.72);
+      font-size:15px;
+      line-height:1.42;
+      font-weight:760;
+    }
+    .domain-card {
+      margin:18px auto 0;
+      width:min(430px,100%);
+      padding:11px;
+      border-radius:24px;
+      background:rgba(255,255,255,.075);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      gap:9px;
+      color:#fff;
+    }
+    .domain {
+      min-height:47px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      padding:8px;
+      background:rgba(255,255,255,.08);
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+      font-weight:950;
+      letter-spacing:-.15px;
+    }
+    .domain.new {
+      color:#111;
+      background:linear-gradient(135deg,#fff,#efe0c2);
+      box-shadow:0 12px 28px rgba(241,215,158,.14);
+    }
+    .arrow {
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      color:#111;
+      font-weight:1000;
+    }
+    .panel {
+      margin-top:8px;
+      border-radius:34px;
+      padding:15px;
+      background:linear-gradient(145deg,#fff,#f7f7f7);
+      border:1px solid var(--line);
+      box-shadow:0 24px 62px rgba(0,0,0,.17);
+      position:relative;
+      z-index:2;
+    }
+    .notice {
+      display:grid;
+      grid-template-columns:48px 1fr;
+      gap:12px;
+      align-items:center;
+      min-height:78px;
+      padding:12px;
+      border-radius:24px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 88% 0%,rgba(241,215,158,.20),transparent 28%),
+        linear-gradient(135deg,#050505,#171717 72%,#2d2417);
+      margin-bottom:12px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .notice-icon {
+      width:48px;
+      height:48px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      color:#111;
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      font-size:21px;
+      box-shadow:0 15px 30px rgba(200,160,99,.25);
+    }
+    .notice b {
+      display:block;
+      font-size:16px;
+      letter-spacing:-.25px;
+    }
+    .notice span {
+      display:block;
+      margin-top:4px;
+      color:rgba(255,255,255,.70);
+      font-size:12.5px;
+      line-height:1.32;
+      font-weight:760;
+    }
+    .actions {
+      display:grid;
+      gap:10px;
+    }
+    .action {
+      min-height:66px;
+      padding:12px 13px;
+      display:grid;
+      grid-template-columns:44px 1fr 26px;
+      align-items:center;
+      gap:11px;
+      border-radius:23px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.075);
+      box-shadow:0 12px 28px rgba(0,0,0,.052);
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+    .action:active { transform:scale(.985); }
+    .action.main {
+      min-height:72px;
+      background:linear-gradient(135deg,#050505,#1c1c1c 72%,#3d3d3d);
+      color:#fff;
+      border-color:rgba(255,255,255,.08);
+      box-shadow:0 18px 42px rgba(0,0,0,.24);
+    }
+    .ico {
+      width:44px;
+      height:44px;
+      border-radius:17px;
+      display:grid;
+      place-items:center;
+      background:#f1f1f1;
+      font-size:19px;
+    }
+    .main .ico {
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      color:#111;
+    }
+    .txt strong {
+      display:block;
+      font-size:16px;
+      line-height:1.05;
+      font-weight:1000;
+      letter-spacing:-.25px;
+    }
+    .txt small {
+      display:block;
+      margin-top:5px;
+      color:#787878;
+      font-size:12.5px;
+      line-height:1.25;
+      font-weight:760;
+    }
+    .main .txt small { color:rgba(255,255,255,.68); }
+    .chev {
+      color:#9c9c9c;
+      font-size:21px;
+      font-weight:800;
+    }
+    .main .chev { color:rgba(255,255,255,.78); }
+    .mini-grid {
+      margin-top:13px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+    }
+    .mini {
+      min-height:88px;
+      border-radius:23px;
+      padding:13px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.07);
+      box-shadow:0 10px 25px rgba(0,0,0,.045);
+    }
+    .mini b {
+      display:block;
+      font-size:13px;
+      line-height:1.16;
+    }
+    .mini span {
+      display:block;
+      margin-top:7px;
+      color:#777;
+      font-size:11.5px;
+      line-height:1.28;
+      font-weight:760;
+    }
+    .footer {
+      margin-top:auto;
+      padding:17px 8px 0;
+      text-align:center;
+      color:#777;
+      font-size:11.5px;
+      line-height:1.35;
+      font-weight:760;
+    }
+    .footer b { color:#111; }
+    @media(max-width:390px) {
+      .app { padding-left:12px; padding-right:12px; }
+      h1 { font-size:34px; }
+      .logo-wrap { width:112px; height:112px; border-radius:31px; }
+      .domain-card { grid-template-columns:1fr 28px 1fr; padding:9px; }
+      .domain { font-size:12px; min-height:43px; }
+      .panel { padding:12px; border-radius:30px; }
+      .notice { grid-template-columns:43px 1fr; border-radius:22px; }
+      .notice-icon { width:43px; height:43px; border-radius:16px; }
+      .action { min-height:62px; border-radius:21px; grid-template-columns:41px 1fr 22px; }
+      .ico { width:41px; height:41px; border-radius:16px; }
+      .mini-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="https://kavistore.org/">
+        <img src="assets/kavistore-logo.jpg" alt="KAVISTORE">
+        <span><b>KAVISTORE</b><small>official move</small></span>
+      </a>
+      <a class="badge" href="https://kavistore.org/">Новый сайт</a>
+    </header>
+
+    <section class="hero">
+      <div class="logo-wrap"><img src="assets/kavistore-logo.jpg" alt="KAVISTORE"></div>
+      <div class="move-pill"><i>✓</i> Мы переехали</div>
+      <h1>KAVISTORE теперь на kavistore.org</h1>
+      <p>Этот домен остался как официальная страница перехода. Для заказа используйте новый сайт, Telegram-канал или напишите менеджеру.</p>
+
+      <div class="domain-card" aria-label="Переезд домена">
+        <div class="domain">kavistore.online</div>
+        <div class="arrow">→</div>
+        <div class="domain new">kavistore.org</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="notice">
+        <div class="notice-icon">K</div>
+        <div>
+          <b>Официальный новый адрес: kavistore.org</b>
+          <span>Сохраните новый сайт, чтобы всегда открывать актуальный каталог KAVISTORE.</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="action main" href="https://kavistore.org/">
+          <span class="ico">🛍️</span>
+          <span class="txt"><strong>Перейти на новый сайт</strong><small>Открыть kavistore.org с каталогом товаров</small></span>
+          <span class="chev">›</span>
+        </a>
+
+        <a class="action" href="https://t.me/kavi_store">
+          <span class="ico">📲</span>
+          <span class="txt"><strong>Telegram-канал KAVISTORE</strong><small>Новые поступления, цены и коды товаров</small></span>
+          <span class="chev">›</span>
+        </a>
+
+        <a class="action" href="https://t.me/kavi_manager?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%20KAVISTORE">
+          <span class="ico">💬</span>
+          <span class="txt"><strong>Написать менеджеру</strong><small>Помощь с размером, наличием и оформлением</small></span>
+          <span class="chev">›</span>
+        </a>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini"><b>📦 Доставка по странам</b><span>Менеджер подскажет сроки, условия и доступные способы доставки.</span></div>
+        <div class="mini"><b>📏 Подбор размера</b><span>Отправьте код товара — менеджер поможет выбрать размер.</span></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <b>KAVISTORE</b><br>
+      kavistore.online больше не основной сайт. Новый адрес: <b>kavistore.org</b>
+    </footer>
+  </main>
+</body>
+</html>
