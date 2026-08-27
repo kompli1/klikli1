@@ -316,6 +316,27 @@
     .review-badge { color: #fff; }
     .dot { background: rgba(255,255,255,.25); }
     .dot.active { background: #fff; }
+
+    .new-products { margin-top: 18px; text-align: left; }
+    .new-products-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 2px 10px; }
+    .new-products-title { font-size: 16px; line-height: 21px; font-weight: 800; color: #fff; }
+    .new-products-note { color: var(--muted); font-size: 11px; line-height: 16px; white-space: nowrap; }
+    .products-strip {
+      display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none; overscroll-behavior-inline: contain; padding: 0 1px 5px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .products-strip::-webkit-scrollbar { display: none; }
+    .latest-product {
+      flex: 0 0 142px; scroll-snap-align: start; overflow: hidden; border-radius: 16px;
+      background: #fff; color: #0a0a0a; text-decoration: none; border: 1px solid rgba(255,255,255,.12);
+    }
+    .latest-product-image { width: 100%; aspect-ratio: 1 / 1.12; object-fit: cover; display: block; background: #eee; }
+    .latest-product-body { min-height: 70px; padding: 9px 10px 10px; }
+    .latest-product-title { font-size: 13px; line-height: 17px; font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .latest-product-price { margin-top: 4px; font-size: 17px; line-height: 20px; font-weight: 900; }
+    .products-loading { width: 100%; padding: 24px 12px; border-radius: 16px; color: var(--muted); background: rgba(255,255,255,.045); text-align: center; font-size: 13px; }
+    .all-products-link { display: flex; align-items: center; justify-content: center; min-height: 38px; margin-top: 7px; color: #fff; font-size: 12.5px; font-weight: 700; text-decoration: none; }
   </style>
 </head>
 <body>
@@ -341,7 +362,7 @@
 
     <main class="wrap">
       <section class="card" aria-label="KAVISTORE Telegram">
-        <a class="avatar-link js-tg-join" href="https://t.me/+7elanTqLWBc1MjM0" aria-label="Открыть KAVISTORE в Telegram">
+        <a class="avatar-link" href="https://t.me/+7elanTqLWBc1MjM0" aria-label="Открыть KAVISTORE в Telegram">
           <span class="avatar-monogram" aria-hidden="true">KV</span>
         </a>
 
@@ -349,18 +370,29 @@
           <div class="channel-title">KAVISTORE</div>
           <span class="verified" aria-label="Проверено">✓</span>
         </div>
-        <div class="subscribers">Мужская и Женская , одежда и обувь</div>
+        <div class="subscribers">Женская одежда и обувь</div>
         <div class="join-hint">Новые поступления, цены и доступные размеры — в Telegram</div>
         <div class="join-step">Откройте канал и нажмите <b>Присоединиться</b></div>
 
         <div class="action">
-          <a id="telegramButton" class="tg-button js-tg-join" data-pixel-event="Contact" href="https://t.me/+7elanTqLWBc1MjM0">
+          <a id="telegramButton" class="tg-button js-tg-join" data-pixel-event="Lead" href="https://t.me/+7elanTqLWBc1MjM0">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 4.7 17.9 19c-.2 1-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.5 8.2-7.4c.4-.3-.1-.5-.5-.2L6.8 13.2l-4.4-1.4c-1-.3-1-1 .2-1.4L19.7 3.8c.8-.3 1.5.2 1.1.9Z" fill="currentColor"/></svg>
             <span>Подписаться на канал</span>
           </a>
         </div>
 
         <div class="join-note">Telegram учтёт ваше вступление по этой пригласительной ссылке.</div>
+
+        <section class="new-products" aria-label="Новые поступления KAVISTORE">
+          <div class="new-products-head">
+            <div class="new-products-title">🆕 Новые поступления</div>
+            <div class="new-products-note">автолистание • свайп →</div>
+          </div>
+          <div id="latestProducts" class="products-strip">
+            <div class="products-loading">Загружаем новые товары...</div>
+          </div>
+          <a class="all-products-link" href="https://kavistore.org/#catalog">Открыть весь каталог →</a>
+        </section>
 
         <section class="reviews" aria-label="Отзывы покупателей">
           <div class="reviews-head">
@@ -379,7 +411,7 @@
   </div>
 
 
-  <a id="stickyTelegramButton" class="sticky-join js-tg-join" data-pixel-event="Contact" href="https://t.me/+7elanTqLWBc1MjM0" aria-label="Подписаться на KAVISTORE">
+  <a id="stickyTelegramButton" class="sticky-join js-tg-join" data-pixel-event="Lead" href="https://t.me/+7elanTqLWBc1MjM0" aria-label="Подписаться на KAVISTORE">
     Подписаться в Telegram
   </a>
 
@@ -387,19 +419,19 @@
   <script>
     (function () {
       var telegramWebUrl = "https://t.me/+7elanTqLWBc1MjM0";
-      var telegramDeepUrl = "tg://join?invite=7elanTqLWBc1MjM0";
       var pixelLocked = false;
 
-      function sendPixelLead() {
+      function sendPixelLead(buttonId) {
         if (pixelLocked) return;
         pixelLocked = true;
         try {
           if (window.fbq) {
-            fbq('track', 'Contact', {
+            fbq('track', 'Lead', {
               content_name: 'Telegram subscribe button',
               content_category: 'Telegram',
-              button_id: 'telegramButton',
-              destination: 'Telegram channel'
+              button_id: buttonId || 'telegramButton',
+              value: 1.00,
+              currency: 'USD'
             });
             fbq('trackCustom', 'TelegramJoinClick', {
               channel: 'kavi_store',
@@ -412,21 +444,75 @@
       function openTelegram(event) {
         if (event) event.preventDefault();
 
-        sendPixelLead();
+        var buttonId = event && event.currentTarget ? event.currentTarget.id : 'telegramButton';
+        sendPixelLead(buttonId);
 
-        // 1) Сначала пробуем открыть Telegram-приложение сразу в канал.
-        window.location.href = telegramDeepUrl;
-
-        // 2) Если приложение не открылось, откроется обычная страница t.me.
+        // Короткая задержка помогает браузеру отправить событие Pixel до перехода.
+        // Прямая HTTPS-ссылка надёжнее работает во встроенном браузере Meta.
         setTimeout(function () {
           window.location.href = telegramWebUrl;
-        }, 1700);
+        }, 350);
       }
 
       document.querySelectorAll('.js-tg-join').forEach(function (link) {
         link.setAttribute('href', telegramWebUrl);
         link.addEventListener('click', openTelegram);
       });
+    })();
+
+    (function () {
+      var strip = document.getElementById('latestProducts');
+      if (!strip) return;
+
+      var endpoint = 'https://kavistore.org/latest-products.json?v=' + Date.now();
+      var timer = null;
+
+      function escapeHtml(value) {
+        return String(value || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function imageUrl(value) {
+        value = String(value || '').trim();
+        if (/^https:\/\//i.test(value)) return value;
+        return 'https://kavistore.org/' + value.replace(/^\/+/, '');
+      }
+
+      function formatPrice(value) {
+        var amount = Number(value || 0);
+        return amount ? amount.toLocaleString('ru-RU') + ' ₸' : 'Цена на сайте';
+      }
+
+      function render(items) {
+        items = (items || []).filter(function (item) { return item && item.image && (item.id || item.code); }).slice(0, 12);
+        if (!items.length) throw new Error('empty_products');
+
+        strip.innerHTML = items.map(function (item) {
+          var href = 'https://t.me/+7elanTqLWBc1MjM0';
+          return '<a class="latest-product" href="' + href + '">' +
+            '<img class="latest-product-image" src="' + escapeHtml(imageUrl(item.image)) + '" alt="' + escapeHtml(item.title || 'Товар KAVISTORE') + '" loading="lazy">' +
+            '<div class="latest-product-body"><div class="latest-product-title">' + escapeHtml(item.title || 'Товар KAVISTORE') + '</div>' +
+            '<div class="latest-product-price">' + formatPrice(item.price_kzt) + '</div></div></a>';
+        }).join('');
+
+        if (items.length > 2) {
+          timer = setInterval(function () {
+            var max = strip.scrollWidth - strip.clientWidth;
+            if (strip.scrollLeft >= max - 8) strip.scrollTo({ left: 0, behavior: 'smooth' });
+            else strip.scrollBy({ left: 152, behavior: 'smooth' });
+          }, 3200);
+          strip.addEventListener('touchstart', function () { if (timer) clearInterval(timer); }, { passive: true, once: true });
+        }
+      }
+
+      fetch(endpoint, { cache: 'no-store', mode: 'cors' })
+        .then(function (response) { if (!response.ok) throw new Error('latest_products'); return response.json(); })
+        .then(function (data) { render(data && data.products ? data.products : []); })
+        .catch(function () { strip.closest('.new-products').style.display = 'none'; });
     })();
 
     (function () {
