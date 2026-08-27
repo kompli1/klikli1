@@ -328,13 +328,17 @@
     }
     .products-strip::-webkit-scrollbar { display: none; }
     .latest-product {
-      flex: 0 0 142px; scroll-snap-align: start; overflow: hidden; border-radius: 16px;
+      flex: 0 0 232px; scroll-snap-align: start; overflow: hidden; border-radius: 18px;
       background: #fff; color: #0a0a0a; text-decoration: none; border: 1px solid rgba(255,255,255,.12);
     }
-    .latest-product-image { width: 100%; aspect-ratio: 1 / 1.12; object-fit: cover; display: block; background: #eee; }
-    .latest-product-body { min-height: 70px; padding: 9px 10px 10px; }
-    .latest-product-title { font-size: 13px; line-height: 17px; font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .latest-product-price { margin-top: 4px; font-size: 17px; line-height: 20px; font-weight: 900; }
+    .latest-product-image { width: 100%; aspect-ratio: 1.12 / 1; object-fit: cover; display: block; background: #eee; }
+    .latest-product-body { min-height: 139px; padding: 10px 11px 12px; }
+    .latest-product-title { font-size: 15px; line-height: 19px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .latest-price-label { margin-top: 8px; color: #747474; font-size: 10px; line-height: 13px; font-weight: 900; letter-spacing: .12em; }
+    .latest-product-price { margin-top: 1px; font-size: 25px; line-height: 30px; font-weight: 950; letter-spacing: -.03em; }
+    .latest-price-flag { font-size: 15px; letter-spacing: 0; }
+    .latest-price-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+    .latest-price-pill { padding: 5px 8px; border-radius: 999px; background: #343434; color: #fff; border: 1px solid #666; font-size: 11px; line-height: 14px; font-weight: 850; white-space: nowrap; }
     .products-loading { width: 100%; padding: 24px 12px; border-radius: 16px; color: var(--muted); background: rgba(255,255,255,.045); text-align: center; font-size: 13px; }
     .all-products-link { display: flex; align-items: center; justify-content: center; min-height: 38px; margin-top: 7px; color: #fff; font-size: 12.5px; font-weight: 700; text-decoration: none; }
   </style>
@@ -487,6 +491,14 @@
         return amount ? amount.toLocaleString('ru-RU') + ' ₸' : 'Цена на сайте';
       }
 
+      function pricePills(value) {
+        var raw = String(value || '');
+        var matches = raw.match(/\d[\d\s.,]*\s*(?:Br|COM|СУМ|с)\s*\([^)]*\)/gi) || [];
+        return matches.slice(0, 4).map(function (part) {
+          return '<span class="latest-price-pill">' + escapeHtml(part.trim()) + '</span>';
+        }).join('');
+      }
+
       function render(items) {
         items = (items || []).filter(function (item) { return item && item.image && (item.id || item.code); }).slice(0, 12);
         if (!items.length) throw new Error('empty_products');
@@ -496,14 +508,16 @@
           return '<a class="latest-product" href="' + href + '">' +
             '<img class="latest-product-image" src="' + escapeHtml(imageUrl(item.image)) + '" alt="' + escapeHtml(item.title || 'Товар KAVISTORE') + '" loading="lazy">' +
             '<div class="latest-product-body"><div class="latest-product-title">' + escapeHtml(item.title || 'Товар KAVISTORE') + '</div>' +
-            '<div class="latest-product-price">' + formatPrice(item.price_kzt) + '</div></div></a>';
+            '<div class="latest-price-label">ЦЕНА</div>' +
+            '<div class="latest-product-price">' + formatPrice(item.price_kzt) + ' <span class="latest-price-flag">(🇰🇿)</span></div>' +
+            '<div class="latest-price-pills">' + pricePills(item.price) + '</div></div></a>';
         }).join('');
 
         if (items.length > 2) {
           timer = setInterval(function () {
             var max = strip.scrollWidth - strip.clientWidth;
             if (strip.scrollLeft >= max - 8) strip.scrollTo({ left: 0, behavior: 'smooth' });
-            else strip.scrollBy({ left: 152, behavior: 'smooth' });
+            else strip.scrollBy({ left: 242, behavior: 'smooth' });
           }, 3200);
           strip.addEventListener('touchstart', function () { if (timer) clearInterval(timer); }, { passive: true, once: true });
         }
